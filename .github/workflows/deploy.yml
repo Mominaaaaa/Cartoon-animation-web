@@ -1,9 +1,13 @@
 name: CI/CD to ECS
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy (staging or production)'
+        required: true
+        default: 'staging'
+
 
 jobs:
   deploy:
