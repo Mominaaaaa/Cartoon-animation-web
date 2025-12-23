@@ -3,7 +3,7 @@ name: CI/CD to ECS
 on:
   push:
     branches:
-      - main  # or your deployment branch
+      - main
 
 jobs:
   deploy:
@@ -21,12 +21,12 @@ jobs:
         aws-region: ${{ secrets.AWS_REGION }}
 
     - name: Login to Amazon ECR
-      id: ecr-login
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Build Docker image
       run: |
-        docker build -t ${{ secrets.ECR_REPOSITORY }}:latest .
+        docker build -t cartoon-app:latest .
+        docker tag cartoon-app:latest ${{ secrets.ECR_REPOSITORY }}:latest
 
     - name: Push Docker image to ECR
       run: |
